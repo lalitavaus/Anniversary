@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy aniversary 1/2 years</title>
+</head>
+<style>
+  :root {
+    /* window */
+    --coral: #d98b85;
+    --coral-dark: #c4736e;
+    --title-bg: #e9b9c5;
+    --band: #f6dde3;
+    --gingham-a: #f3c9d5;
+    --gingham-b: #e8aec0;
+    --cream: #fdf6f2;
+    --ink: #8a2f43;
+    --red: #d94c5e;
+ 
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --page-a: #2b1a2e; --page-b: #1c1424; --page-c: #3a1f2b; --floaty: #b8506a;
+    }
+  }
+ 
+  *, *::before, *::after { box-sizing: border-box; }
+  html { height: 100%; scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0; height: 100%; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--page-b);
+    background-image: linear-gradient(150deg, var(--page-a) 0%, var(--page-b) 55%, var(--page-c) 100%);
+    font-family: "Pixelify Sans", "Courier New", ui-monospace, monospace;
+    color: var(--ink);
+  }
+ 
+  /* ambient floating hearts */
+  .floaty {
+    position: fixed; bottom: -30px; color: var(--floaty); opacity: .55;
+    z-index: 0; animation: rise linear infinite; 
+  }
+  @keyframes rise {
+    0%   { transform: translateY(0) translateX(0); opacity: 0; }
+    10%  { opacity: .55; }
+    100% { transform: translateY(-110vh) translateX(24px); opacity: 0; }
+  }
+ 
+  /* the window */
+  .window {
+    position: relative; z-index: 1;
+    width: min(92vw, 380px);
+    background: var(--cream);
+    border: 5px solid var(--coral);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 18px 40px rgba(138, 47, 67, .25);
+  }
+  .titlebar {
+    display: flex; align-items: center; justify-content: space-between;
+    background: var(--title-bg);
+    border-bottom: 5px solid var(--coral);
+    padding: 10px 12px;
+  }
+  .titlebar span.name { font-size: 1.5rem; font-weight: 700; letter-spacing: 3px; }
+  .ctrls { display: flex; gap: 8px; }
+  .ctrl {
+    width: 28px; height: 28px; display: grid; place-items: center;
+    border: 3px solid var(--coral); border-radius: 5px; background: var(--cream);
+    font-size: 14px; line-height: 1; font-weight: 700; color: var(--coral-dark);
+  }
+  .band {
+    display: flex; align-items: center; justify-content: center; gap: 14px;
+    background: var(--band); border-bottom: 5px solid var(--coral);
+    padding: 12px 0; color: var(--red); font-size: 1.5rem; line-height: 1;
+  }
+  .band i { width: 8px; height: 8px; background: var(--coral); display: block; }
+ 
+  .body {
+    position: relative; text-align: center; padding: 22px 18px 26px;
+    background-color: var(--gingham-a);
+    background-image:
+      repeating-linear-gradient(90deg, rgba(232,174,192,.55) 0 14px, transparent 14px 28px),
+      repeating-linear-gradient(0deg,  rgba(232,174,192,.55) 0 14px, transparent 14px 28px);
+  }
+  .title {
+    margin: 0 0 18px; font-size: 1.45rem; line-height: 1.25; font-weight: 700;
+    text-shadow: 2px 2px 0 rgba(255,255,255,.55);
+  }
+  #cat {
+    display: block; margin: 0 auto; width: 224px; max-width: 62%;
+    aspect-ratio: 16 / 14; image-rendering: pixelated;
+    animation: bob 1.6s steps(2) infinite;
+    filter: drop-shadow(0 8px 0 rgba(217,76,94,.15));
+  }
+  #cat.happy { animation: hop .6s steps(4) infinite; }
+  @keyframes bob { 50% { transform: translateY(-4px); } }
+  @keyframes hop {
+    0%, 100% { transform: rotate(-7deg) translateY(0); }
+    50%      { transform: rotate(-7deg) translateY(-12px); }
+  }
+  .msg { display: none; margin: 26px 0 0; font-size: 1.15rem; font-weight: 600; line-height: 1.4; }
+  .msg.show { display: block; animation: pop .45s steps(5); }
+  @keyframes pop { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .window { transition: box-shadow .6s; }
+  .window.celebrate { box-shadow: 0 0 70px 10px rgba(226, 90, 110, .45); }
+ 
+  .btns {
+    display: flex; justify-content: center; align-items: center; gap: 22px;
+    margin-top: 30px; min-height: 64px;
+  }
+  .slot { display: inline-block; }
+  button {
+    font: inherit; font-size: 1.15rem; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; cursor: pointer; color: var(--ink);
+    background: var(--cream); border: 4px solid var(--coral); border-radius: 8px;
+    padding: 12px 24px 10px; box-shadow: 0 6px 0 var(--coral);
+    transition: transform .12s, box-shadow .12s;
+  }
+  button:active { transform: translateY(4px); box-shadow: 0 2px 0 var(--coral); }
+  #yesBtn { transform: scale(var(--s, 1)); transform-origin: center; }
+  #yesBtn:hover, #yesBtn:focus-visible {
+    outline: 3px dashed var(--coral); outline-offset: 6px;
+  }
+  #yesBtn:active { transform: scale(var(--s, 1)) translateY(4px); }
+  #noBtn.loose {
+    position: fixed; z-index: 20; transition: left .18s, top .18s;
+  }
+ 
+  .heart-burst {
+    position: fixed; top: -80px; pointer-events: none; z-index: 30; line-height: 1;
+    animation: fall linear forwards;
+  }
+  @keyframes fall {
+    to { transform: translateY(120vh) rotate(var(--rot, 300deg)); }
+  }
+  .heart-pop {
+    position: fixed; pointer-events: none; z-index: 30; line-height: 1;
+    animation: pop-out 1.6s ease-out forwards;
+  }
+  @keyframes pop-out {
+    0%   { transform: translate(-50%, -50%) scale(.2); opacity: 0; }
+    15%  { opacity: .9; }
+    100% { transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(1.1) rotate(var(--rot)); opacity: 0; }
+  }
+</style>
+</head>
+
+<body>
+<section class="window" id="win">
+    <header class="titlebar">
+        <span class="name">Happy anniversary 1/2 year baby &#9825</span>
+        <div class="ctrls" aria-hidden="true">
+        </div>
+    </header>
+ 
+    <div class="body" id="bodyArea">
+        <h1 class="title" id="title"> Do you still love me?</h1>
+        <canvas id="cat" width="16" height="14"></canvas>
+        <div class="btns" id="btns">
+            <button id="yesBtn">Yes</button>
+            <span class="slot" id="slot"><button id="noBtn">No</button></span>
+        </div>
+    <p class="msg" id="msg">thank you for being part of my life and lighting it up. I'm more than happy to have you as my boyfriend &#9829;</p>
+    </div>
+</section>
+
+<script>
+  const $ = id => document.getElementById(id);
+  const yesBtn = $('yesBtn'), noBtn = $('noBtn'), slot = $('slot');
+  const title = $('title'), win = $('win'), bodyArea = $('bodyArea');
+  const canvas = $('cat'), ctx = canvas.getContext('2d');
+  const rand = (a, b) => Math.random() * (b - a) + a;
+ 
+  /* ---------- pixel cat (16 x 14 grid) ---------- */
+  const PAL = { K: '#221c1c', W: '#ffffff', B: '#f4a9b8', N: '#ee8ea3', R: '#d94c5e' };
+  const catRows = [
+    "..K..........K..",
+    "..KK........KK..",
+    "..KKKKKKKKKKKK..",
+    "..KWWWKKKKWWWK..",
+    "..KWKKKKKKWKKK..",
+    "..KBBKKNNKKBBK..",
+    "..KKKKKKKKKKKK..",
+    "..KKRRRKKRRRKK..",
+    "..KKRRRRRRRRKK..",
+    "..KKKRRRRRRKKK..",
+    "..KKKKRRRRKKKK..",
+    ".KKKKKKRRKKKKKK.",
+    "..KKKKK..KKKKK..",
+    "..KKKK....KKKK.."
+  ];
+  const happyEyes = { 3: "..KKWKKKKKKWKK..", 4: "..KWKWKKKKWKWK.." };
+ 
+  function drawCat(happy) {
+    ctx.clearRect(0, 0, 16, 14);
+    catRows.forEach((row, y) => {
+      const r = happy && happyEyes[y] ? happyEyes[y] : row;
+      [...r].forEach((c, x) => {
+        if (c === '.') return;
+        ctx.fillStyle = PAL[c];
+        ctx.fillRect(x, y, 1, 1);
+      });
+    });
+  }
+  drawCat(false);
+ 
+  /* ---------- ambient floating hearts ---------- */
+  for (let i = 0; i < 18; i++) {
+    const h = document.createElement('span');
+    h.className = 'floaty';
+    h.textContent = '\u2665';
+    h.style.left = rand(0, 100) + 'vw';
+    h.style.fontSize = rand(12, 28) + 'px';
+    h.style.animationDuration = rand(9, 18) + 's';
+    h.style.animationDelay = (-rand(0, 18)) + 's';
+    document.body.appendChild(h);
+  }
+ 
+  /* ---------- the No button runs away ---------- */
+  let yesScale = 1, loose = false;
+ 
+  function dodge() {
+    if (!loose) {
+      // pin a same-sized ghost in the slot so the layout doesn't jump
+      const r = noBtn.getBoundingClientRect();
+      slot.style.width = r.width + 'px';
+      slot.style.height = r.height + 'px';
+      noBtn.classList.add('loose');
+      noBtn.style.left = r.left + 'px';
+      noBtn.style.top = r.top + 'px';
+      loose = true;
+    }
+    const w = win.getBoundingClientRect();
+    const b = bodyArea.getBoundingClientRect();
+    const nw = noBtn.offsetWidth, nh = noBtn.offsetHeight;
+    const yr = yesBtn.getBoundingClientRect();
+    let x, y, tries = 0;
+    do {
+      x = rand(w.left + 12, w.right - nw - 12);
+      y = rand(b.top + 8, w.bottom - nh - 14);
+      tries++;
+    } while (tries < 20 &&
+      x < yr.right + 16 && x + nw > yr.left - 16 &&
+      y < yr.bottom + 16 && y + nh > yr.top - 16);
+    noBtn.style.left = x + 'px';
+    noBtn.style.top = y + 'px';
+ 
+    yesScale = Math.min(yesScale + 0.07, 1.7);
+    yesBtn.style.setProperty('--s', yesScale);
+  }
+  noBtn.addEventListener('mouseenter', dodge);
+  noBtn.addEventListener('touchstart', e => { e.preventDefault(); dodge(); }, { passive: false });
+  noBtn.addEventListener('click', e => { e.preventDefault(); dodge(); });
+ 
+  /* ---------- yes! ---------- */
+  const HEART_COLORS = ['#e05a6d', '#f4a3b5', '#f6a35c', '#f7d25b', '#b79cf0', '#d94c5e', '#f28aa4'];
+  const pick = arr => arr[Math.floor(Math.random() * arr.length)];
+ 
+  function styleHeart(h, min, max) {
+    h.textContent = '\u2665';
+    h.style.color = pick(HEART_COLORS);
+    h.style.fontSize = rand(min, max) + 'px';
+    h.style.opacity = rand(0.55, 0.85);
+    if (Math.random() < 0.4) h.style.filter = 'blur(' + rand(0.5, 2.5) + 'px)';
+  }
+ 
+  function rainHearts() {
+    // colourful hearts drifting down over the whole page
+    for (let i = 0; i < 70; i++) {
+      const h = document.createElement('span');
+      h.className = 'heart-burst';
+      styleHeart(h, 20, 66);
+      h.style.left = rand(0, 100) + 'vw';
+      h.style.setProperty('--rot', rand(-360, 360) + 'deg');
+      h.style.animationDuration = rand(3, 6.5) + 's';
+      h.style.animationDelay = rand(0, 2.2) + 's';
+      document.body.appendChild(h);
+      h.addEventListener('animationend', () => h.remove());
+    }
+    // burst of hearts flying out from the window
+    const w = win.getBoundingClientRect();
+    const cx = w.left + w.width / 2, cy = w.top + w.height / 2;
+    for (let i = 0; i < 34; i++) {
+      const h = document.createElement('span');
+      h.className = 'heart-pop';
+      styleHeart(h, 22, 60);
+      const ang = rand(0, Math.PI * 2), dist = rand(120, 320);
+      h.style.left = cx + 'px'; h.style.top = cy + 'px';
+      h.style.setProperty('--dx', Math.cos(ang) * dist + 'px');
+      h.style.setProperty('--dy', Math.sin(ang) * dist + 'px');
+      h.style.setProperty('--rot', rand(-200, 200) + 'deg');
+      document.body.appendChild(h);
+      h.addEventListener('animationend', () => h.remove());
+    }
+  }
+ 
+  yesBtn.onclick = () => {
+    title.textContent = 'hehehe i love you more btch';
+    canvas.classList.add('happy');
+    drawCat(true);
+    $('btns').style.display = 'none';
+    noBtn.style.display = 'none';
+    $('msg').classList.add('show');
+    win.classList.add('celebrate');
+    rainHearts();
+  };
+</script>
+</body>
+</html>
+ 
